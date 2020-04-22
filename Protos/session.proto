@@ -1,0 +1,22 @@
+﻿/*syntax = "proto3";
+
+option csharp_namespace = "TEM.DTO";
+
+package session;
+
+
+service SessionService {
+  //rpc GetAllClients (GetAllClientsRequest) returns (GetAllClientsResponse);
+  rpc GetSession (SesionRequest) returns (Session);
+}
+
+
+message Session {
+  string instructorGUID = 1; //This is a test
+}
+
+message SessionRequest {
+  string instructorGUID = 1;
+  string clientGUID = 2;
+}
+*/

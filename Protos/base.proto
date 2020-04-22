@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+package base;
+
+option csharp_namespace = "TEM.DTO";
+
+service BaseService {
+  rpc BaseTemp (BaseRequest) returns (BaseReplyX);
+}
+
+//Base
+message BaseDTO {
+  string Guid = 1;
+  string Created = 2;
+}
+
+
+
+// The request message containing the user's name.
+message BaseRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message BaseReplyX {
+  string message = 1;
+}

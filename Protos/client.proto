@@ -1,0 +1,38 @@
+﻿syntax = "proto3";
+
+//option csharp_namespace = "TEM.KinductAPI.Shared";
+option csharp_namespace = "TEM.DTO";
+
+package client;
+
+
+service ClientService {
+  rpc GetAllClients (GetAllClientsRequest) returns (GetAllClientsResponse);
+  rpc GetClient (ClientRequest) returns (Client);
+}
+
+
+message Client {
+  string instructorGUID = 1; //This is a test
+  string firstname = 2;
+  string lastname = 3;
+  float length = 4;
+}
+
+
+message GetAllClientsRequest {
+  string instructorGUID = 1;
+}
+
+
+
+message GetAllClientsResponse {
+  repeated Client clients = 1;
+}
+
+
+
+message ClientRequest {
+  string instructorGUID = 1;
+  string clientGUID = 2;
+}

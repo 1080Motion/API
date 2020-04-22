@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+package instructor;
+
+//import "Protos/base.proto";
+option csharp_namespace = "TEM.DTO";
+
+
+
+
+service InstructorService {
+  rpc GetInstructor (GetInstructorRequest) returns (Instructor);
+}
+
+
+message Instructor {
+  //base.BaseDTO common = 1;
+  string firstname = 2; //
+  string lastname = 3;
+}
+
+
+message GetInstructorRequest {
+  string ApiKey = 1;
+}
