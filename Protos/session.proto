@@ -1,9 +1,10 @@
 ﻿syntax = "proto3";
 
-option csharp_namespace = "TEM.DTO";
+
 
 package session;
-
+option csharp_namespace = "TEM.DTO";
+import "Api/Protos/base.proto";
 
 service SessionService {
   //rpc GetAllClients (GetAllClientsRequest) returns (GetAllClientsResponse);
@@ -12,7 +13,8 @@ service SessionService {
 
 
 message Session {
-  string instructorGUID = 1; //This is a test
+base.BaseDTO common = 1;
+  string client_guid = 2;
 }
 
 message SessionRequest {

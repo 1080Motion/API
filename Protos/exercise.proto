@@ -1,0 +1,21 @@
+﻿syntax = "proto3";
+
+
+
+package exercise;
+option csharp_namespace = "TEM.DTO";
+import "Api/Protos/base.proto";
+
+service ExerciseService {
+  rpc GetExercise (ExerciseRequest) returns (Exercise);
+}
+
+
+message Exercise {
+base.BaseDTO common = 1;
+  string session_guid = 2;
+}
+
+message ExerciseRequest {
+  string session_guid = 1;
+}

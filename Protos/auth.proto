@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+package auth;
+
+option csharp_namespace = "TEM.DTO";
+import "google/protobuf/timestamp.proto";
+
+
+service AuthService {
+    rpc GetInstructorToken (GetInstructorTokenRequest) returns (AuthToken);
+    rpc GetClientToken (GetClientTokenRequest) returns (AuthToken);
+    rpc GetSessionToken (GetSessionTokenRequest) returns (AuthToken);
+}
+
+message AuthToken {
+  string token = 1;
+}
+
+
+
+
+message GetInstructorTokenRequest {
+  string api_key = 1;
+}
+
+message GetClientTokenRequest {
+  string api_key = 1;
+  string client_guid = 2;
+}
+
+message GetSessionTokenRequest {
+  string api_key = 1;
+  string session_guid = 2;
+}

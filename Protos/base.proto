@@ -3,20 +3,24 @@
 package base;
 
 option csharp_namespace = "TEM.DTO";
+import "google/protobuf/timestamp.proto";
 
-service BaseService {
-  rpc BaseTemp (BaseRequest) returns (BaseReplyX);
-}
+//service BaseService {
+//  rpc BaseTemp (BaseRequest) returns (BaseReplyX);
+//}
 
 //Base
 message BaseDTO {
   string Guid = 1;
-  string Created = 2;
+  google.protobuf.Timestamp Created = 2;
+  google.protobuf.Timestamp Edited = 3;
+  google.protobuf.Timestamp Deleted = 4;
 }
 
 
 
 // The request message containing the user's name.
+/*
 message BaseRequest {
   string name = 1;
 }
@@ -24,4 +28,4 @@ message BaseRequest {
 // The response message containing the greetings.
 message BaseReplyX {
   string message = 1;
-}
+}*/

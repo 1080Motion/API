@@ -1,9 +1,11 @@
 ﻿syntax = "proto3";
 
+package client;
+
 //option csharp_namespace = "TEM.KinductAPI.Shared";
 option csharp_namespace = "TEM.DTO";
+import "Api/Protos/base.proto";
 
-package client;
 
 
 service ClientService {
@@ -13,10 +15,14 @@ service ClientService {
 
 
 message Client {
-  string instructorGUID = 1; //This is a test
-  string firstname = 2;
-  string lastname = 3;
-  float length = 4;
+	base.BaseDTO common = 1;
+	string instructor_guid = 2; //This is a test
+	string firstname = 3;
+	string lastname = 4;
+	bool is_male = 5;
+	float length = 6;
+	float weight = 7;
+	string mail_adress = 8;
 }
 
 

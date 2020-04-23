@@ -2,24 +2,40 @@
 
 package instructor;
 
-//import "Protos/base.proto";
+import "Api/Protos/base.proto";
+import "google/protobuf/timestamp.proto";
 option csharp_namespace = "TEM.DTO";
 
 
 
 
 service InstructorService {
-  rpc GetInstructor (GetInstructorRequest) returns (Instructor);
+	//rpc Login (LoginRequest) returns (LoginResponse);
+	rpc GetInstructor (GetInstructorRequest) returns (Instructor);
 }
 
 
 message Instructor {
-  //base.BaseDTO common = 1;
+  base.BaseDTO common = 1;
   string firstname = 2; //
   string lastname = 3;
+  google.protobuf.Timestamp date_of_birth = 4;
+  bool is_male = 5;
+  string mail_adress = 6;
 }
 
+/*
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string apikey = 1;
+}
+*/
 
 message GetInstructorRequest {
-  string ApiKey = 1;
+//This method does not have any parameters
 }
+

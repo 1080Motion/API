@@ -1,0 +1,75 @@
+﻿syntax = "proto3";
+
+
+
+package set;
+option csharp_namespace = "TEM.DTO";
+import "Api/Protos/base.proto";
+
+service SetService {
+  rpc GetSet (GetSetRequest) returns (GetSetResponse);
+  rpc GetSetsForSession (GetSetsForSessionRequest) returns (GetSetsForSessionResponse);
+}
+
+message GetSetRequest {
+    string set_guid = 1;
+}
+
+message GetSetResponse {
+    Set set = 1;
+}
+
+message GetSetsForSessionRequest {
+    string session_guid = 1;
+}
+
+message GetSetsForSessionResponse {
+    repeated Set sets = 1;
+}
+
+
+
+message Set {
+	base.BaseDTO common = 1;
+	string exercise_guid = 2;
+    repeated MotionGroup motion_groups = 3;
+}
+
+message SetRequest {
+  string exercise_guid = 1;
+
+}
+
+
+message MotionGroup {
+	base.BaseDTO common = 1;
+	string set_guid = 2;
+	bool _is_curve_selected = 3;
+	int32 side = 4;
+	string color_rgb = 5;
+	repeated Motion motions = 6;
+}
+
+message Motion {
+	base.BaseDTO common = 1;
+	string motion_group_guid = 2;
+	Resistance resistance = 3;
+	repeated DataSample samples = 4;
+}
+
+message Resistance{
+	float con_mass = 1;
+	float ecc_mass = 2;
+	int32 mode = 3;
+	int32 gear = 4;
+	float con_speed_limit = 5;
+	float ecc_speed_limit = 6;
+}
+
+message DataSample{
+	float position = 1;
+	float time = 2;
+	float speed = 3;
+	float force = 4;
+	float power = 5;
+}
