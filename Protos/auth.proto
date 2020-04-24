@@ -12,11 +12,21 @@ service AuthService {
     rpc GetSessionToken (GetSessionTokenRequest) returns (AuthToken);
 }
 
+
 message AuthToken {
   string token = 1;
 }
 
+/*message AuthToken {
+    AuthMessage message = 1;
+    string hmac = 2;
+}
 
+message AuthMessage {
+    google.protobuf.Timestamp valid_until = 1;
+    string instructor_guid = 2;
+    string client_guid = 3;
+}*/
 
 
 message GetInstructorTokenRequest {
