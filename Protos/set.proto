@@ -1,10 +1,13 @@
 ﻿syntax = "proto3";
-
-
-
 package set;
 option csharp_namespace = "TEM.DTO";
 import "Api/Protos/base.proto";
+
+message Set {
+	base.BaseDTO common = 1;
+	string exercise_guid = 2;
+    repeated MotionGroup motion_groups = 3;
+}
 
 service SetService {
   rpc GetSet (GetSetRequest) returns (GetSetResponse);
@@ -29,11 +32,7 @@ message GetSetsForSessionResponse {
 
 
 
-message Set {
-	base.BaseDTO common = 1;
-	string exercise_guid = 2;
-    repeated MotionGroup motion_groups = 3;
-}
+
 
 message SetRequest {
   string exercise_guid = 1;

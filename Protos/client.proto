@@ -10,7 +10,7 @@ import "Api/Protos/base.proto";
 
 service ClientService {
   rpc GetAllClients (GetAllClientsRequest) returns (GetAllClientsResponse);
-  rpc GetClient (ClientRequest) returns (Client);
+  rpc GetClient (GetClientRequest) returns (Client);
 }
 
 
@@ -27,7 +27,6 @@ message Client {
 
 
 message GetAllClientsRequest {
-  string instructorGUID = 1;
 }
 
 
@@ -38,7 +37,6 @@ message GetAllClientsResponse {
 
 
 
-message ClientRequest {
-  string instructorGUID = 1;
-  string clientGUID = 2;
+message GetClientRequest {
+  string client_guid = 1;
 }

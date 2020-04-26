@@ -3,7 +3,7 @@
 package auth;
 
 option csharp_namespace = "TEM.DTO";
-import "google/protobuf/timestamp.proto";
+//import "google/protobuf/timestamp.proto";
 
 
 service AuthService {
