@@ -11,6 +11,8 @@ The API is built using [gRPC](https://grpc.io) and [Protocol buffers](https://de
 # Usage
 To start using the API you first need to download the proto files found in the [Protos](https://github.com/1080Motion/API/tree/master/Protos) folder. Based on these proto files you then need to generate client code for the specific programming language you will be using. After this setup is complete you are ready to start making queries!  
 
+# API key
+To access data for an account you also need an api key related  to that account. To obtain this key please contact 1080Motion.
 
 # Documentation
 For more details and instructions of how to use the API please visit the [wiki](https://github.com/1080Motion/API/wiki) pages
