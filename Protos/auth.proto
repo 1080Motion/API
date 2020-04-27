@@ -7,38 +7,13 @@ option csharp_namespace = "TEM.DTO";
 
 
 service AuthService {
-    rpc GetInstructorToken (GetInstructorTokenRequest) returns (AuthToken);
-    rpc GetClientToken (GetClientTokenRequest) returns (AuthToken);
-    rpc GetSessionToken (GetSessionTokenRequest) returns (AuthToken);
+    rpc GetToken (GetTokenRequest) returns (GetTokenResponse);
 }
 
+message GetTokenRequest {
+  string api_key = 1;
+}
 
-message AuthToken {
+message GetTokenResponse {
   string token = 1;
-}
-
-/*message AuthToken {
-    AuthMessage message = 1;
-    string hmac = 2;
-}
-
-message AuthMessage {
-    google.protobuf.Timestamp valid_until = 1;
-    string instructor_guid = 2;
-    string client_guid = 3;
-}*/
-
-
-message GetInstructorTokenRequest {
-  string api_key = 1;
-}
-
-message GetClientTokenRequest {
-  string api_key = 1;
-  string client_guid = 2;
-}
-
-message GetSessionTokenRequest {
-  string api_key = 1;
-  string session_guid = 2;
 }
