@@ -1,5 +1,8 @@
-# 1080Motion API
-Welcome to the official 1080Motion API!
+# 1080Motion API (beta)
+Welcome to the official 1080Motion API! Please note the API is still in beta but but we are working on making it production ready as soon as possible.
+
+The API url is currently located at:  
+[https://cgrpc.1080motion.com](https://cgrpc.1080motion.com)
 
 ## Introduction
 The 1080Motion API allows authenticated clients to query data that is stored in our databases. Using the API customers and/or third party athlete management systems can easily integrate the API into their platforms.
