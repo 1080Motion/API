@@ -5,6 +5,7 @@
 package exercise_type;
 option csharp_namespace = "TEM.DTO";
 import "Api/Protos/base.proto";
+//import "google/protobuf/struct.proto";
 
 service ExerciseTypeService {
   rpc GetExerciseType (GetExerciseTypeRequest) returns (GetExerciseTypeResponse);
@@ -14,8 +15,12 @@ service ExerciseTypeService {
 
 message ExerciseType {
 	base.BaseDTO common = 1;
-	string instructor_guid = 2;
-	string name = 3;
+	string instructor_guid = 2;			//Reference to the parent instructor who created this exercise type. If empty this exercise type is public.
+	string name = 3;					//Name of this exercise type
+	string instructions = 4;			//Usage instructions for this exercise type
+	bool is_bilateral = 5;				//True = bilateral, false = unilateral
+	bool is_start_with_concentric = 6;	//True is repetition cycle is con-ecc, false if ecc-con
+	string hyperlink = 7;				//Link to external url
 }
 
 message GetExerciseTypeRequest {
@@ -32,3 +37,10 @@ message GetAllExerciseTypesRequest {
 message GetAllExerciseTypesResponse {
 	repeated ExerciseType exercise_types = 1;
 }
+
+/*message NullableBool {
+	oneof kind {
+		google.protobuf.NullValue null = 1;
+		bool data = 2;
+  }
+}*/

@@ -7,7 +7,7 @@ option csharp_namespace = "TEM.DTO";
 import "Api/Protos/base.proto";
 
 service ExerciseService {
-  rpc GetExercise (GetExerciseRequest) returns (Exercise);
+  rpc GetExercise (GetExerciseRequest) returns (GetExerciseResponse);
   rpc GetAllExercisesForSession (GetAllExercisesForSessionRequest) returns (GetAllExercisesForSessionResponse);
   rpc GetAllExercisesForClient (GetAllExercisesForClientRequest) returns (GetAllExercisesForClientResponse);
 }
@@ -15,11 +15,16 @@ service ExerciseService {
 
 message Exercise {
 	base.BaseDTO common = 1;
-	string session_guid = 2;
+	string session_guid = 2; //Reference to the parent session
+	string notes = 3; //Notes for this exercise
 }
 
 message GetExerciseRequest {
   string exercise_guid = 1;
+}
+
+message GetExerciseResponse {
+  Exercise exercise = 1;
 }
 
 message GetAllExercisesForSessionRequest {

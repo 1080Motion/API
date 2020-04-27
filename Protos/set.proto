@@ -2,11 +2,15 @@
 package set;
 option csharp_namespace = "TEM.DTO";
 import "Api/Protos/base.proto";
+import "google/protobuf/struct.proto";
 
 message Set {
 	base.BaseDTO common = 1;
-	string exercise_guid = 2;
-    repeated MotionGroup motion_groups = 3;
+	string exercise_guid = 2;					//Reference to parent Exercise
+    repeated MotionGroup motion_groups = 3;		//List of MotionGroups
+	int32 external_load = 4;					//Total external load in kg including the bar (only applicable for syncro exercise types with a smithpress). Ex: 20kg bar plus one 10kg weight on each side equals ExternalLoad = 40
+	SetViewSetting view_settings = 5;			
+
 }
 
 service SetService {
@@ -42,18 +46,25 @@ message SetRequest {
 
 message MotionGroup {
 	base.BaseDTO common = 1;
-	string set_guid = 2;
-	bool _is_curve_selected = 3;
-	int32 side = 4;
-	string color_rgb = 5;
-	repeated Motion motions = 6;
+	string set_guid = 2;				//Reference to parent Set
+	repeated Motion motions = 3;		//List of Motions
+	bool _is_curve_selected = 4;		//True if the MotionGroup is selected for curve viewing
+	Side side = 5;
+	string color_rgb = 6;				//RGB encoded color 
+	
 }
 
 message Motion {
 	base.BaseDTO common = 1;
-	string motion_group_guid = 2;
-	Resistance resistance = 3;
-	repeated DataSample samples = 4;
+	string motion_group_guid = 2;		//Reference to parent MotionGroup
+	Resistance resistance = 3;			//Resistance used during this Motion
+	repeated DataSample samples = 4;	//List of DataSamples
+	int32 node_no = 5;					//1 for left machines, 2 for right machines
+	string comment = 6;
+	NullableInt32 start_index = 7;		//Start index in DataSamples for trimming
+	NullableInt32 stop_index = 8;		//Stop index in DataSamples for trimming
+	bool is_eccentric = 9;				//True = eccentric, false = concentric Motion
+	bool is_curve_selected = 10;	
 }
 
 message Resistance{
@@ -69,6 +80,53 @@ message DataSample{
 	float position = 1;
 	float time = 2;
 	float speed = 3;
-	float force = 4;
-	float power = 5;
+	float acceleration = 4;
+	float force = 5;
+	float power = 6;
+}
+
+/*
+
+*/
+message SetViewSetting {
+	Phase phase = 1; //
+	Unit unit = 2;
+	BargraphVisibility bargraph_visibility = 3;
+	bool is_average_visible = 4;
+	bool is_average_bargraphs_visible = 5;
+}
+
+enum Phase {
+	NONE = 0;
+	CONCENTRIC = 1;
+	ECCENTRIC = 2;
+}
+
+enum Unit {
+	POSITION = 0;
+	SPEED = 1;
+	ACCELERATION = 2;
+	FORCE = 3;
+	POWER = 4;
+	TIME = 5;
+}
+
+enum BargraphVisibility {
+	PEAK_ONLY = 0;
+	AVERAGE_ONLY = 1;
+	BOTH = 2;
+}
+
+enum Side {
+	LEFT = 0;
+	RIGHT = 1;
+	BILATERAL = 2;
+}
+
+message NullableInt32 {
+	oneof kind {
+		google.protobuf.NullValue null = 1;
+		int32 data = 2;
+  }
+  
 }

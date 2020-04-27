@@ -7,18 +7,22 @@ option csharp_namespace = "TEM.DTO";
 import "Api/Protos/base.proto";
 
 service SessionService {  
-  rpc GetSession (GetSessionRequest) returns (Session);
-  rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse);
+  rpc GetSession (GetSessionRequest) returns (GetSessionResponse); //Get the specified session
+  rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse); //Get all sessions for the specified client
 }
 
 
 message Session {
 	base.BaseDTO common = 1;
-	string client_guid = 2;
+	string client_guid = 2; //Reference to the parent client
 }
 
 message GetSessionRequest {
 	string session_guid = 1;
+}
+
+message GetSessionResponse {
+	Session session = 1;
 }
 
 message GetAllSessionsForClientRequest {
