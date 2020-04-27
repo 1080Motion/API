@@ -1,7 +1,7 @@
 # 1080Motion API (beta)
 Welcome to the official 1080Motion API! Please note the API is still in beta but but we are working on making it production ready as soon as possible.
 
-The API url is currently:
+The API url is currently located at:  
 [https://cgrpc.1080motion.com](https://cgrpc.1080motion.com)
 
 ## Introduction
