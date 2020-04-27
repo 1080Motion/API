@@ -1,11 +1,11 @@
 ﻿syntax = "proto3";
 package set;
-option csharp_namespace = "TEM.DTO";
+option csharp_namespace = "TEM.Proto";
 import "Api/Protos/base.proto";
 import "google/protobuf/struct.proto";
 
 message Set {
-	base.BaseDTO common = 1;
+	base.BaseProto common = 1;
 	string exercise_guid = 2;					//Reference to parent Exercise
     repeated MotionGroup motion_groups = 3;		//List of MotionGroups
 	int32 external_load = 4;					//Total external load in kg including the bar (only applicable for syncro exercise types with a smithpress). Ex: 20kg bar plus one 10kg weight on each side equals ExternalLoad = 40
@@ -45,7 +45,7 @@ message SetRequest {
 
 
 message MotionGroup {
-	base.BaseDTO common = 1;
+	base.BaseProto common = 1;
 	string set_guid = 2;				//Reference to parent Set
 	repeated Motion motions = 3;		//List of Motions
 	bool _is_curve_selected = 4;		//True if the MotionGroup is selected for curve viewing
@@ -55,7 +55,7 @@ message MotionGroup {
 }
 
 message Motion {
-	base.BaseDTO common = 1;
+	base.BaseProto common = 1;
 	string motion_group_guid = 2;		//Reference to parent MotionGroup
 	Resistance resistance = 3;			//Resistance used during this Motion
 	repeated DataSample samples = 4;	//List of DataSamples

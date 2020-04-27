@@ -3,7 +3,7 @@
 
 
 package session;
-option csharp_namespace = "TEM.DTO";
+option csharp_namespace = "TEM.Proto";
 import "Api/Protos/base.proto";
 
 service SessionService {  
@@ -13,7 +13,7 @@ service SessionService {
 
 
 message Session {
-	base.BaseDTO common = 1;
+	base.BaseProto common = 1;
 	string client_guid = 2; //Reference to the parent client
 }
 
