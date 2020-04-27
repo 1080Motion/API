@@ -1,4 +1,4 @@
-# 1080Motion API
+# 1080Motion API <sup>beta</sup>
 Welcome to the official 1080Motion API!
 
 ## Introduction
