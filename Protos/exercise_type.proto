@@ -5,7 +5,6 @@
 package exercise_type;
 option csharp_namespace = "TEM.Proto";
 import "Api/Protos/base.proto";
-//import "google/protobuf/struct.proto";
 
 service ExerciseTypeService {
   rpc GetExerciseType (GetExerciseTypeRequest) returns (GetExerciseTypeResponse);
@@ -21,6 +20,7 @@ message ExerciseType {
 	bool is_bilateral = 5;				//True = bilateral, false = unilateral
 	bool is_start_with_concentric = 6;	//True is repetition cycle is con-ecc, false if ecc-con
 	string hyperlink = 7;				//Link to external url
+	ArchType arch_type = 8;
 }
 
 message GetExerciseTypeRequest {
@@ -38,9 +38,13 @@ message GetAllExerciseTypesResponse {
 	repeated ExerciseType exercise_types = 1;
 }
 
-/*message NullableBool {
-	oneof kind {
-		google.protobuf.NullValue null = 1;
-		bool data = 2;
-  }
-}*/
+message ArchType {
+	string name = 1;
+	PresentationType presentation_type = 2;	
+}
+
+enum PresentationType {
+	REPETITIONS = 0;			//Repetitions are normally presented as bargraphs
+	LINEAR = 1;					//Typically used when running distances from point A to B
+	CHANGE_OF_DIRECTION = 2;	//Used for shuttle-run type of exercises
+}
