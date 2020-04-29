@@ -1,20 +1,17 @@
 ﻿syntax = "proto3";
-
-
-
 package session;
 option csharp_namespace = "TEM.Proto";
 import "Api/Protos/base.proto";
 
 service SessionService {  
-  rpc GetSession (GetSessionRequest) returns (GetSessionResponse); //Get the specified session
-  rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse); //Get all sessions for the specified client
+  rpc GetSession (GetSessionRequest) returns (GetSessionResponse);											//Get the specified session
+  rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse);	//Get all sessions for the specified client
 }
 
 
 message Session {
 	base.BaseProto common = 1;
-	string client_guid = 2; //Reference to the parent client
+	string client_guid = 2;		//Reference to the parent client
 }
 
 message GetSessionRequest {

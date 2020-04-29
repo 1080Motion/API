@@ -1,7 +1,4 @@
 ﻿syntax = "proto3";
-
-
-
 package exercise_type;
 option csharp_namespace = "TEM.Proto";
 import "Api/Protos/base.proto";
