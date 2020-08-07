@@ -12,7 +12,8 @@ service ExerciseService {
 message Exercise {
 	base.BaseProto common = 1;
 	string session_guid = 2;	//Reference to the parent session
-	string notes = 3;			//Notes for this exercise
+	string exercise_type_guid = 3;	//Reference to the parent exercisetype
+	string notes = 4;			//Notes for this exercise
 }
 
 message GetExerciseRequest {
