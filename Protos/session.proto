@@ -10,7 +10,7 @@ service SessionService {
   rpc GetSession (GetSessionRequest) returns (GetSessionResponse);																//Get the specified session
   rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse);						//Get all sessions for the specified client
   rpc GetSessionsWithinDateForClient (GetSessionsWithinDateForClientRequest) returns (GetSessionsWithinDateForClientResponse);	//Get all sessions for the specified client within a specified date range
-  rpc GetDataForSession (GetDataForSessionRequest) returns (GetDataForSessionResponse);											//Get Exercises and Sets for specified Session
+  rpc GetDataForSession (GetDataForSessionRequest) returns (GetDataForSessionResponse);			//Get all exercises and sets for a specific session								//Get Exercises and Sets for specified Session
 }
 
 
