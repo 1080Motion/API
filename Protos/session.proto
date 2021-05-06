@@ -2,10 +2,15 @@
 package session;
 option csharp_namespace = "TEM.Proto";
 import "Api/Protos/base.proto";
+import "Api/Protos/exercise.proto";
+import "Api/Protos/set.proto";
+import "google/protobuf/timestamp.proto";
 
 service SessionService {  
-  rpc GetSession (GetSessionRequest) returns (GetSessionResponse);											//Get the specified session
-  rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse);	//Get all sessions for the specified client
+  rpc GetSession (GetSessionRequest) returns (GetSessionResponse);																//Get the specified session
+  rpc GetAllSessionsForClient (GetAllSessionsForClientRequest) returns (GetAllSessionsForClientResponse);						//Get all sessions for the specified client
+  rpc GetSessionsWithinDateForClient (GetSessionsWithinDateForClientRequest) returns (GetSessionsWithinDateForClientResponse);	//Get all sessions for the specified client within a specified date range
+  rpc GetDataForSession (GetDataForSessionRequest) returns (GetDataForSessionResponse);											//Get Exercises and Sets for specified Session
 }
 
 
@@ -28,4 +33,23 @@ message GetAllSessionsForClientRequest {
 
 message GetAllSessionsForClientResponse {
 	repeated Session sessions = 1;
+}
+
+message GetSessionsWithinDateForClientRequest {
+	string client_guid = 1;
+	google.protobuf.Timestamp DateFrom = 2;
+	google.protobuf.Timestamp DateTo = 3;
+}
+
+message GetSessionsWithinDateForClientResponse {
+	repeated Session sessions = 1;
+}
+
+message GetDataForSessionRequest {
+	string session_guid = 1;
+}
+
+message GetDataForSessionResponse {
+	repeated exercise.Exercise exercises = 1;
+	repeated set.Set sets = 2;
 }

@@ -2,10 +2,12 @@
 package instructor;
 import "Api/Protos/base.proto";
 import "google/protobuf/timestamp.proto";
+import "Api/Protos/session.proto";
 option csharp_namespace = "TEM.Proto";
 
 service InstructorService {
-	rpc GetInstructor (GetInstructorRequest) returns (GetInstructorResponse); //Get the instructor
+	rpc GetInstructor (GetInstructorRequest) returns (GetInstructorResponse);							//Get the instructor
+	rpc GetSessionsWithinDate (GetSessionsWithinDateRequest) returns (GetSessionsWithinDateResponse);	//Get sessions within a specified date range for all clients belonging to this instructor 
 }
 
 message Instructor {
@@ -22,4 +24,13 @@ message GetInstructorRequest {
 
 message GetInstructorResponse {
 	Instructor instructor = 1; 
+}
+
+message GetSessionsWithinDateRequest {
+	google.protobuf.Timestamp DateFrom = 2;
+	google.protobuf.Timestamp DateTo = 3;
+}
+
+message GetSessionsWithinDateResponse {
+	repeated session.Session sessions = 1;
 }
