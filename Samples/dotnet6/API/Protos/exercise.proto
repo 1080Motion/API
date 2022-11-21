@@ -1,0 +1,41 @@
+﻿syntax = "proto3";
+package exercise;
+option csharp_namespace = "TEM.Proto";
+import "Api/Protos/base.proto";
+
+service ExerciseService {
+  rpc GetExercise (GetExerciseRequest) returns (GetExerciseResponse);
+  rpc GetAllExercisesForSession (GetAllExercisesForSessionRequest) returns (GetAllExercisesForSessionResponse);
+  rpc GetAllExercisesForClient (GetAllExercisesForClientRequest) returns (GetAllExercisesForClientResponse);
+}
+
+message Exercise {
+	base.BaseProto common = 1;
+	string session_guid = 2;	//Reference to the parent session
+	string exercise_type_guid = 3;	//Reference to the parent exercisetype
+	string notes = 4;			//Notes for this exercise
+}
+
+message GetExerciseRequest {
+  string exercise_guid = 1;
+}
+
+message GetExerciseResponse {
+  Exercise exercise = 1;
+}
+
+message GetAllExercisesForSessionRequest {
+	string session_guid = 1;
+}
+
+message GetAllExercisesForSessionResponse {
+	repeated Exercise exercises = 1;
+}
+
+message GetAllExercisesForClientRequest {
+	string client_guid = 1;
+}
+
+message GetAllExercisesForClientResponse {
+	repeated Exercise exercises = 1;
+}

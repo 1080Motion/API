@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+package auth;
+
+option csharp_namespace = "TEM.Proto";
+
+service AuthService {
+    rpc GetToken (GetTokenRequest) returns (GetTokenResponse); //Entry point for the API used to obtain the authentication token
+}
+
+message GetTokenRequest {
+  string api_key = 1;           //API key per instructor account (this key is manually distributed by 1080Motion upon request)
+}
+
+message GetTokenResponse {
+  string token = 1;             //Token used for authenticated api calls
+}

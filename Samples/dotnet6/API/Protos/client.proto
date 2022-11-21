@@ -1,0 +1,38 @@
+﻿syntax = "proto3";
+package client;
+option csharp_namespace = "TEM.Proto";
+import "Api/Protos/base.proto";
+
+service ClientService {
+	rpc GetClient (GetClientRequest) returns (GetClientResponse);				//Get the specified client
+	rpc GetAllClients (GetAllClientsRequest) returns (GetAllClientsResponse);	//Get all clients  
+}
+
+message Client {
+	base.BaseProto common = 1;
+	string instructor_guid = 2;			//Reference to the parent instructor
+	string firstname = 3;
+	string lastname = 4;
+	bool is_male = 5;					//Male = true, female = false
+	float length = 6;					//Bodyheight in cm
+	float weight = 7;					//Bodyweight in kg
+	string mail_adress = 8;				//Email address
+}
+
+message GetClientResponse {
+	Client client = 1;
+}
+
+message GetClientRequest {
+  string client_guid = 1;
+}
+
+message GetAllClientsRequest {
+}
+
+message GetAllClientsResponse {
+  repeated Client clients = 1;
+}
+
+
+

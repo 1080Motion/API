@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+package base;
+option csharp_namespace = "TEM.Proto";
+import "google/protobuf/timestamp.proto";
+
+
+//Base message used in many other messages
+message BaseProto {
+  string Guid = 1;
+  google.protobuf.Timestamp Created = 2;
+  google.protobuf.Timestamp Edited = 3;
+  google.protobuf.Timestamp Deleted = 4;
+}

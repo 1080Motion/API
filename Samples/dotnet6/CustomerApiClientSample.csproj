@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Google.Protobuf" Version="3.21.9" />
+      <PackageReference Include="Grpc.Net.Client" Version="2.50.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.50.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="API\Protos\auth.proto" />
+      <Protobuf Include="API\Protos\auth.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\base.proto" />
+      <Protobuf Include="API\Protos\base.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\client.proto" />
+      <Protobuf Include="API\Protos\client.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\exercise.proto" />
+      <Protobuf Include="API\Protos\exercise.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\exercise_type.proto" />
+      <Protobuf Include="API\Protos\exercise_type.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\instructor.proto" />
+      <Protobuf Include="API\Protos\instructor.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\session.proto" />
+      <Protobuf Include="API\Protos\session.proto" GrpcServices="Client" />
+      <None Remove="API\Protos\set.proto" />
+      <Protobuf Include="API\Protos\set.proto" GrpcServices="Client" />
+    </ItemGroup>
+
+</Project>
