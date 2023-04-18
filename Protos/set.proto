@@ -46,6 +46,7 @@ message MotionGroup {
 	bool _is_curve_selected = 4;		//True if the MotionGroup is selected for curve viewing
 	Side side = 5;
 	string color_rgb = 6;				//RGB encoded color 
+	string comment = 7;					//User entered comment
 }
 
 /*
