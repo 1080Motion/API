@@ -19,6 +19,7 @@ service SetService {
 
 message GetSetRequest {
     string set_guid = 1;
+	bool includeTrainingData = 2; // Set to true to fetch MotionGroups and Motions for the set
 }
 
 message GetSetResponse {
