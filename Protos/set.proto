@@ -38,7 +38,7 @@ message GetSetsForSessionResponse {
 MotionGroups are a container for one or many Motions depending on the PresentationType enum for the ExerciseType
 For REPETITION it contains at most two motions, one eccentric and one concentric in the order they were performed.
 For LINEAR it always contains 1 Motion
-For CHANGE_OF_DIRECTION it contains 1 Motion per phase (1a, 1b in one motion group, 2a, 2b in the next and so on)
+For CHANGE_OF_DIRECTION it contains 1 Motion per phase, all grouped into a single MotionGroup
 */
 message MotionGroup {
 	base.BaseProto common = 1;
