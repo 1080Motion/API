@@ -11,12 +11,16 @@ service ClientService {
 message Client {
 	base.BaseProto common = 1;
 	string instructor_guid = 2;			//Reference to the parent instructor
+	// firstname and lastname are obsolete and will get removed. Use display_name below instead
 	string firstname = 3;
 	string lastname = 4;
+	// IsMale is obsolete and will be removed in the future. Use gender field instead
 	bool is_male = 5;					//Male = true, female = false
 	float length = 6;					//Bodyheight in cm
 	float weight = 7;					//Bodyweight in kg
-	string mail_adress = 8;				//Email address
+	string mail_address = 8;				//Email address
+	string display_name = 9;            // Client name/alias
+	Gender gender = 10;					// User specified gender
 }
 
 message GetClientResponse {
@@ -24,15 +28,18 @@ message GetClientResponse {
 }
 
 message GetClientRequest {
-  string client_guid = 1;
+	string client_guid = 1;
 }
 
 message GetAllClientsRequest {
 }
 
 message GetAllClientsResponse {
-  repeated Client clients = 1;
+	repeated Client clients = 1;
 }
 
-
-
+enum Gender{
+	Unspecified = 0;
+	Male = 1;
+	Female = 2;
+}

@@ -13,18 +13,20 @@ string apiKey = args[0];
 try
 {
     // Setup a client and login to the API
-    var apiClient = new CustomerApiClient();
+    //string apiHost = "https://localhost:8585";
+    //string apiHost = "https://cgrpc.1080motion.com";
+    string apiHost = "https://1080cgrpc.azurewebsites.net/";
+    var apiClient = new CustomerApiClient(new Uri(apiHost));
     await apiClient.Initialize(apiKey);
 
     Console.WriteLine("Downloading instructor & clients");
     var instructor = await apiClient.DownloadInstructor();
     Console.WriteLine("Instructor = {0} {1}", instructor.Firstname, instructor.Lastname);
     var clients = await apiClient.DownloadAllClients();
-    Console.WriteLine("");
+    Console.WriteLine("{0} clients received", clients.Count);
     foreach (var client in clients)
     {
-        // Print the names of the clients. Note: Due to a limitation in the API, some names will be blank. This will be fixed in a future update to the API  
-        Console.WriteLine("  Client: {0}", client.Firstname);
+        Console.WriteLine("  Client: {0} ({1})", client.DisplayName, client.Gender);
     }
 
     return 0;
