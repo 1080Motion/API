@@ -3,9 +3,12 @@ using CustomerApiClientSample;
 
 using Grpc.Core;
 
-if (args.Length < 1)
+string defaultHost = "https://cgrpc.1080motion.com";
+
+if (args.Length < 1 || args.Any(a => a == "-h" || a == "--help"))
 {
-    Console.Error.WriteLine("Usage: CustomerApiClientSample.exe <ApiKey>");
+    Console.Error.WriteLine("Usage: CustomerApiClientSample.exe <ApiKey> [host]");
+    Console.Error.WriteLine("If no host is specified, the client will connect to {0}", defaultHost);
     return -1;
 }
 
@@ -14,9 +17,9 @@ try
 {
     // Setup a client and login to the API
     //string apiHost = "https://localhost:8585";
-    //string apiHost = "https://cgrpc.1080motion.com";
-    string apiHost = "https://1080cgrpc.azurewebsites.net/";
+    string apiHost = args.Length > 1 ? args[1] : "https://cgrpc.1080motion.com";
     var apiClient = new CustomerApiClient(new Uri(apiHost));
+    Console.WriteLine("Connecting to API at {0}", apiHost);
     await apiClient.Initialize(apiKey);
 
     Console.WriteLine("Downloading instructor & clients");

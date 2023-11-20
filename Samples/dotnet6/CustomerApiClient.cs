@@ -30,7 +30,10 @@ public class CustomerApiClient
     {
         using var channel = GrpcChannel.ForAddress(_baseUri, new GrpcChannelOptions()
         {
-            HttpClient = new HttpClient()
+            // By specifying a handler here we get around some misbehaving proxies that block HTTP2 traffic
+            // The downside is we don't get load balancing, but the 1080 API does not yet have that 
+            // enabled so it's not an actual problem.
+            HttpHandler = new HttpClientHandler()
         });
     
         // Login first
