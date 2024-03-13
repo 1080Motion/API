@@ -1,21 +1,51 @@
-# 1080Motion API (beta)
-Welcome to the official 1080Motion API! Please note the API is still in beta but we are working on making it production ready as soon as possible.
+# 1080Motion API
 
-The API url is currently located at:  
-[https://cgrpc.1080motion.com](https://cgrpc.1080motion.com)
+Welcome to the official 1080Motion API! 
 
-## Introduction
-The 1080Motion API allows authenticated clients to query data that is stored in our databases. Using the API customers and/or third party athlete management systems can easily integrate the API into their platforms.
+The API provides programmatic access to training data recorded on 1080 sprint and quantum machines. 
+Using the API customers and/or third party athlete management systems can easily integrate the API into their platforms.
 
-## Design
-The API is built using [gRPC](https://grpc.io) and [Protocol buffers](https://developers.google.com/protocol-buffers/docs/proto3) (proto 3).
-
-
-## Usage
-To start using the API you first need to download the proto files found in the [Protos](https://github.com/1080Motion/API/tree/master/Protos) folder. Based on these proto files you then need to generate client code for the specific programming language you will be using. After this setup is complete you are ready to start making queries!  
-
-## API key
-To access data for an account you also need an api key related  to that account. To obtain this key please contact 1080Motion.
-
-## Documentation
 For more details and instructions of how to use the API please visit the [wiki](https://github.com/1080Motion/API/wiki) pages
+
+## Accessing the API
+
+> **Note:** There are two flavors of the API: a REST based API using basic HTTP requests, and one using gRPC and protocol buffers. 
+> The recommended flavor is the REST API because it is easier to interact with. 
+
+The HTTP/REST API is hosted at [https://publicapi.1080motion.com](https://publicapi.1080motion.com).
+
+The gRPC API is hosted at [https://publicapi-grpc.1080motion.com/](https://publicapi-grpc.1080motion.com/).
+
+### API key
+To access data for an account you also need an api key related to that account. To obtain this key please contact 1080Motion.
+
+The same API key is used on both flavors APIs
+
+See the [wiki page on authentication](https://github.com/1080Motion/API/wiki/Authentication) for more details.
+
+
+### Getting started
+
+The HTTP API can be tested without any additional tooling by 
+accessing [the swagger page](https://publicapi.1080motion.com/swagger/index.html) hosted on the API Server.
+
+It's also possible to use a tool such as [Postman](https://www.postman.com/) to query the API.
+
+To use the gRPC API, you need to [generate code from the .proto files](https://github.com/1080Motion/API/wiki/Client-code-generation-(grpc))
+
+## Why two APIs?
+
+Historical reasons. Technically, the gRPC based API has better performance thanks to efficient data serialization and
+code generation.
+
+The negative side is that it's a steep learning curve to get started, especially from higher level languages such as 
+python or R which many want to use.
+
+This lead us to develop the new, simpler web API.
+
+For the time being, both flavors of the API will continue to live side by side.
+
+Read more about gRPC over at: 
+- https://grpc.io
+- https://developers.google.com/protocol-buffers/docs/proto3
+
