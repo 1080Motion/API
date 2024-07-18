@@ -1,4 +1,4 @@
-# 1080 Customer API Sample Client
+# 1080 Public API Sample Client (gRPC in .NET)
 
 This is a sample client for the 1080 Motion customer API.
 
@@ -15,7 +15,7 @@ The code expects the **API key** to be passed on the command line. If you don't 
 
 For example (*the API key here is not valid - replace with your own working API key*)
 
-    CustomareApiClientSample.exe EF3515B6-D6A5-46E2-A925-5006D8FFC2E2
+    CustomerApiClientSample.exe EF3515B6-D6A5-46E2-A925-5006D8FFC2E2
 
 The API is linked to a specific instructor account, and all calls using that API key grants access to data
 under that instructor.
