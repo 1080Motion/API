@@ -6,46 +6,50 @@ import "google/protobuf/struct.proto";
 
 message Set {
 	base.BaseProto common = 1;
-	string exercise_guid = 2;					//Reference to parent Exercise
-    repeated MotionGroup motion_groups = 3;		//List of MotionGroups
-	int32 external_load = 4;					//Total external load in kg including the bar (only applicable for syncro exercise types with a smithpress). Ex: 20kg bar plus one 10kg weight on each side equals ExternalLoad = 40
-	SetViewSetting view_settings = 5;		
+	string exercise_guid = 2;          //Reference to parent Exercise
+	repeated MotionGroup motion_groups = 3;    //List of MotionGroups
+	int32 external_load = 4;          //Total external load in kg including the bar (only applicable for syncro exercise types with a smithpress). Ex: 20kg bar plus one 10kg weight on each side equals ExternalLoad = 40
+	SetViewSetting view_settings = 5;
 }
 
 service SetService {
-  rpc GetSet (GetSetRequest) returns (GetSetResponse);
-  rpc GetSetsForSession (GetSetsForSessionRequest) returns (GetSetsForSessionResponse);
+	rpc GetSet (GetSetRequest) returns (GetSetResponse);
+	rpc GetSetsForSession (GetSetsForSessionRequest) returns (GetSetsForSessionResponse);
+	rpc GetSetsForSessionStream (GetSetsForSessionRequest) returns (stream GetSetResponse);
 }
 
 message GetSetRequest {
-    string set_guid = 1;
+	string set_guid = 1;
+	bool includeTrainingData = 2; // Set to true to fetch MotionGroups and Motions for the set
 }
 
 message GetSetResponse {
-    Set set = 1;
+	Set set = 1;
 }
 
 message GetSetsForSessionRequest {
-    string session_guid = 1;
+	string session_guid = 1;
+	optional bool includeTrainingData = 2; // If false, then no reps will be downloaded
 }
 
 message GetSetsForSessionResponse {
-    repeated Set sets = 1;
+	repeated Set sets = 1;
 }
 
 /*
-MotionGroups are a container for one or many (max 4) Motions depending on the PresentationType enum for the ExerciseType
-For REPETITION it contains
-For LINEAR it contains 1 Motion
-For CHANGE_OF_DIRECTION it contains 1 Motion per phase (1a, 1b, 2a, 2b etc)
+MotionGroups are a container for one or many Motions depending on the PresentationType enum for the ExerciseType
+For REPETITION it contains at most two motions, one eccentric and one concentric in the order they were performed.
+For LINEAR it always contains 1 Motion
+For CHANGE_OF_DIRECTION it contains 1 Motion per phase, all grouped into a single MotionGroup
 */
 message MotionGroup {
 	base.BaseProto common = 1;
-	string set_guid = 2;				//Reference to parent Set
-	repeated Motion motions = 3;		//List of Motions
-	bool _is_curve_selected = 4;		//True if the MotionGroup is selected for curve viewing
-	Side side = 5;
-	string color_rgb = 6;				//RGB encoded color 
+	string set_guid = 2;            // Reference to parent Set
+	repeated Motion motions = 3;    // List of Motions
+	bool _is_curve_selected = 4;    // True if the MotionGroup is selected for curve viewing
+	Side side = 5;                  // Corresponds to the side chosen during the training by the user (selection only available in unilateral exercises)
+	string color_rgb = 6;           // RGB encoded color 
+	string comment = 7;             // User entered comment
 }
 
 /*
@@ -53,55 +57,56 @@ Motions are containers for individual movements from one machine at a time
 */
 message Motion {
 	base.BaseProto common = 1;
-	string motion_group_guid = 2;		//Reference to parent MotionGroup
-	Resistance resistance = 3;			//Resistance used during this Motion
+	string motion_group_guid = 2;     // Reference to parent MotionGroup
+	Resistance resistance = 3;        // Resistance settings used during this Motion
 	DataSamples samples = 4;
 	AggregatedValues values = 5;
-	int32 node_no = 6;					//Node number for the machine that created this Motion. 1 for a left machine, 2 for a right machine
-	string comment = 7;					//Comments for this Motion
-	bool is_eccentric = 8;				//True = eccentric, false = concentric Motion
-	bool is_curve_selected = 9;			//True if curve is selected for viewing
+	int32 node_no = 6;                // Node number for the machine that created this Motion. 1 for a left machine, 2 for a right machine. In single machine setups, 1 is used.
+	string comment = 7;               // Comments for this Motion. Not used (see MotionGroup.comment instead)
+	bool is_eccentric = 8;            // True = eccentric/assisted, false = concentric/resisted Motion
+	bool is_curve_selected = 9;       // True if curve is selected for viewing
 }
 
 message Resistance{
-	float con_mass = 1;
-	float ecc_mass = 2;
-	int32 mode = 3;
-	int32 gear = 4;
-	float con_speed_limit = 5;
-	float ecc_speed_limit = 6;
+	float con_mass = 1;               // Concentric load, in kg
+	float ecc_mass = 2;               // Eccentric load, in kg
+	int32 mode = 3;                   // Mode (0 = "Normal", 1 = "No flying weight (NFW)", 2 = "Isotonic")
+	int32 gear = 4;                   // Gear (1 or 2)
+	float con_speed_limit = 5;        // Concentric/resisted speed limit, in m/s
+	float ecc_speed_limit = 6;        // Eccentric/assisted speed limit, in m/s
 }
 
 //Aggregated values are calculated based on list of samples. If start_index and stop_index are valid these indexes are used in the calculation
 message AggregatedValues {
-	float peak_speed = 1;			//Peak speed in m/s
-	float avg_speed = 2;			//Averege speed in m/s
-	float peak_force = 3;			//Peak force in N
-	float avg_force = 4;			//Average force in N
-	float peak_power = 5;			//Peak power in W
-	float avg_power = 6;			//Average power in W
-	float peak_acceleration = 7;	//Peak acceleration in m/s2
-	float avg_acceleration = 8;		//Average acceleration in m/s2
-	float start_position = 9;		//Starting position of the movement
-	float stop_position = 10;		//Stop position of the movement
-	float work = 11;				//Work in J (defined as the integral of force over position)
-	float distance = 12;			//Accumulated distance traveled in m
-	float duration = 13;			//Duration in s
+	float peak_speed = 1;         // Peak speed in m/s
+	float avg_speed = 2;          // Averege speed in m/s
+	float peak_force = 3;         // Peak force in N
+	float avg_force = 4;          // Average force in N
+	float peak_power = 5;         // Peak power in W
+	float avg_power = 6;          // Average power in W
+	float peak_acceleration = 7;  // Peak acceleration in m/s2
+	float avg_acceleration = 8;   // Average acceleration in m/s2
+	float start_position = 9;     // Starting position of the movement
+	float stop_position = 10;     // Stop position of the movement
+	float work = 11;              // Work in J (defined as the integral of force over position)
+	float distance = 12;          // Accumulated distance traveled in m
+	float duration = 13;          // Duration in s
 }
 
 message DataSamples {
-	repeated DataSample data = 1;	//List of DataSamples
-	NullableInt32 start_index = 2;	//Start index in samples for trimming
-	NullableInt32 stop_index = 3;	//Stop index in samples for trimming
+	repeated DataSample data = 1;   // List of DataSamples
+	NullableInt32 start_index = 2;  // Start index in samples for trimming
+	NullableInt32 stop_index = 3;   // Stop index in samples for trimming
 }
 
+// Raw sample as measured from the quantum or sprint machine
 message DataSample{
-	float position = 1;				//Position in m
-	float time = 2;					//Accumulated time in s starting from 0
-	float speed = 3;				//Speed in m/s
-	float acceleration = 4;			//Acceleration in m/s2
-	float force = 5;				//Force in N
-	float power = 6;				//Power in W
+	float position = 1;         // Position in m
+	float time = 2;             // Accumulated time in s starting from 0
+	float speed = 3;            // Speed in m/s
+	float acceleration = 4;     // Acceleration in m/s2
+	float force = 5;            // Force in N
+	float power = 6;            // Power in W
 }
 
 /*
@@ -146,5 +151,5 @@ message NullableInt32 {
 	oneof kind {
 		google.protobuf.NullValue null = 1;
 		int32 data = 2;
-  }
+	}
 }

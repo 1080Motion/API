@@ -132,7 +132,7 @@ public class CustomerApiClient
             // Finally, download the actual training data (reps)
             var setServiceClient = new SetService.SetServiceClient(_channel);
             var sets = await setServiceClient.GetSetsForSessionAsync(new GetSetsForSessionRequest
-                { SessionGuid = sessionId });
+                { SessionGuid = sessionId, IncludeTrainingData = true });
 
             sessionInfo.SetTrainingData(sets);
         }

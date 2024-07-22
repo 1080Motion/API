@@ -5,7 +5,7 @@ package auth;
 option csharp_namespace = "TEM.Proto";
 
 service AuthService {
-    rpc GetToken (GetTokenRequest) returns (GetTokenResponse); //Entry point for the API used to obtain the authentication token
+  rpc GetToken (GetTokenRequest) returns (GetTokenResponse); //Entry point for the API used to obtain the authentication token
 }
 
 message GetTokenRequest {
