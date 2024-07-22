@@ -1,7 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Net.Client;
 
 using TEM.Proto;
@@ -10,6 +7,7 @@ namespace CustomerApiClientSample;
 
 public class CustomerApiClient
 {
+    public const string DefaultHost = "https://publicapi-grpc.1080motion.com";
     private readonly Uri _baseUri;
     /// <summary>
     /// The authenticated communication channel to the customer API services
@@ -17,7 +15,7 @@ public class CustomerApiClient
     private GrpcChannel? _channel;
 
     public CustomerApiClient()
-     : this(new Uri("https://cgrpc.1080motion.com"))
+     : this(new Uri(DefaultHost))
     { }
     
     public CustomerApiClient(Uri apiUri)
@@ -25,6 +23,7 @@ public class CustomerApiClient
         _baseUri = apiUri;
     }
 
+    public string Host => _baseUri.ToString();
     /// <summary>
     /// Connects to the gRPC service and performs a login using the specified API key.
     /// </summary>
@@ -105,7 +104,7 @@ public class CustomerApiClient
         return response.ExerciseTypes;
     }
     
-    public async Task<SessionInfo> DownloadMostRecentSessionForClient(Client client, bool downloadReps)
+    public async Task<SessionInfo?> DownloadMostRecentSessionForClient(Client client, bool downloadReps)
     {
         if (_channel == null)
             throw new InvalidOperationException("Not yet initialized");
@@ -118,7 +117,7 @@ public class CustomerApiClient
         // First get the list of sessions for this client. The returned data does only includes the basic session info (no list of exercises or sets or reps)
         var response = await sessionServiceClient.GetAllSessionsForClientAsync(req);
         if (response.Sessions.Count == 0)
-            throw new InvalidOperationException("No sessions found for client");
+            return null;
 
         // Download the exercise library so we can match exercise type ids with the name of the exercise
         var allExercises = await DownloadExerciseLibrary();

@@ -3,12 +3,12 @@ using CustomerApiClientSample;
 
 using Grpc.Core;
 
-string defaultHost = "https://publicapi-grpc.1080motion.com";
+
 
 if (args.Length < 1 || args.Any(a => a == "-h" || a == "--help"))
 {
     Console.Error.WriteLine("Usage: CustomerApiClientSample.exe <ApiKey> [host]");
-    Console.Error.WriteLine("If no host is specified, the client will connect to {0}", defaultHost);
+    Console.Error.WriteLine("If no host is specified, the client will connect to {0}", CustomerApiClient.DefaultHost);
     return -1;
 }
 
@@ -16,10 +16,11 @@ string apiKey = args[0];
 try
 {
     // Setup a client and login to the API
-    //string apiHost = "https://localhost:8585";
-    string apiHost = args.Length > 1 ? args[1] : "https://cgrpc.1080motion.com";
-    var apiClient = new CustomerApiClient(new Uri(apiHost));
-    Console.WriteLine("Connecting to API at {0}", apiHost);
+    CustomerApiClient apiClient = args.Length > 1 ? 
+        new CustomerApiClient(new Uri(args[1])) :
+        new CustomerApiClient();
+    
+    Console.WriteLine("Connecting to API at {0}", apiClient.Host);
     await apiClient.Initialize(apiKey);
 
     Console.WriteLine("Downloading instructor & clients");
@@ -34,15 +35,18 @@ try
 
         // Demo how to download and process a session including all its training data:
         var mostRecentSession = await apiClient.DownloadMostRecentSessionForClient(client, downloadReps: true);
-        Console.WriteLine("   - Most recent session: {0} ({1}, {2} exercises):", mostRecentSession.Id,
-            mostRecentSession.Created, mostRecentSession.Exercises.Count);
-        foreach (var exercise in mostRecentSession.Exercises)
+        if (mostRecentSession is not null)
         {
-            Console.WriteLine("     - Exercise {0} ({1}) - {2} sets", exercise.ExerciseId, exercise.ExerciseName,
-                exercise.Sets.Count);
-            foreach (var set in exercise.Sets)
+            Console.WriteLine("   - Most recent session: {0} ({1}, {2} exercises):", mostRecentSession.Id,
+                mostRecentSession.Created, mostRecentSession.Exercises.Count);
+            foreach (var exercise in mostRecentSession.Exercises)
             {
-                Console.WriteLine("       - Set {0} ({1} reps)", set.Common.Guid, set.MotionGroups.Count);
+                Console.WriteLine("     - Exercise {0} ({1}) - {2} sets", exercise.ExerciseId, exercise.ExerciseName,
+                    exercise.Sets.Count);
+                foreach (var set in exercise.Sets)
+                {
+                    Console.WriteLine("       - Set {0} ({1} reps)", set.Common.Guid, set.MotionGroups.Count);
+                }
             }
         }
     }
