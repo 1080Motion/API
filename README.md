@@ -17,12 +17,15 @@ The HTTP/REST API is hosted at [https://publicapi.1080motion.com](https://public
 The gRPC API is hosted at [https://publicapi-grpc.1080motion.com/](https://publicapi-grpc.1080motion.com/).
 
 ### API key
-To access data for an account you also need an api key related to that account. To obtain this key please contact 1080Motion.
+To access data for an account you also need an api key related to that account. These keys can be created
+by the administrator for the instructor account from the [1080 web app](https://webapp.1080motion.com). 
+After logging in as an administrator, click on the name in the top right corner and select "API Keys" in the drop-down menu.
+
+If you have questions or cannot generate keys, contact 1080Motion support.
 
 The same API key is used on both flavors APIs
 
 See the [wiki page on authentication](https://github.com/1080Motion/API/wiki/Authentication) for more details.
-
 
 ### Getting started
 
