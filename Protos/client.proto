@@ -23,6 +23,7 @@ message Client {
   Gender gender = 10;           // User specified gender
   string group_name = 11;       // Group name
   repeated string tags = 12;    // Tags for the client
+  string external_id = 13;      // External ID for the client. Can be used to map clients in 1080 to external systems such as an AMS 
 }
 
 message GetClientResponse {
