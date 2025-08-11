@@ -12,6 +12,8 @@ library(base64enc)
 library(stringr)
 
 # Initialize the API client
+# api_host should be the URL to the API, which is https://publicapi.1080motion.com
+# api_key need to be created. See https://github.com/1080Motion/API/wiki/Authentication for more info
 initialize_api_client <- function(api_host, api_key) {
   list(
     # Initialize base url and key
