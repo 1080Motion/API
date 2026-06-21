@@ -12,11 +12,12 @@ service InstructorService {
 
 message Instructor {
   base.BaseProto common = 1;
-  string firstname = 2; 
-  string lastname = 3;
-  google.protobuf.Timestamp date_of_birth = 4;
-  bool is_male = 5;                // Male = true, female = false
-  string mail_adress = 6;          // Email address
+  string firstname = 2[deprecated=true]; 
+  string lastname = 3[deprecated=true];
+  google.protobuf.Timestamp date_of_birth = 4 [deprecated=true];
+  bool is_male = 5 [deprecated=true];                // Male = true, female = false
+  string email_address = 6;          // Email address
+  string display_name = 7;         // Instructor name/alias
 }
 
 message GetInstructorRequest {
