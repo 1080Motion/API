@@ -18,7 +18,7 @@ The gRPC API is hosted at [https://publicapi-grpc.1080motion.com/](https://publi
 
 ### API key
 To access data for an account you also need an api key related to that account. These keys can be created
-by the administrator for the instructor account from the [1080 web app](https://webapp.1080motion.com). 
+by the administrator for the instructor account from the [1080 web app](https://app.1080motion.com). 
 After logging in as an administrator, click on the name in the top right corner and select "API Keys" in the drop-down menu.
 
 If you have questions or cannot generate keys, contact 1080Motion support.
@@ -30,7 +30,7 @@ See the [wiki page on authentication](https://github.com/1080Motion/API/wiki/Aut
 ### Getting started
 
 The HTTP API can be tested without any additional tooling by 
-accessing [the swagger page](https://publicapi.1080motion.com/swagger/index.html) hosted on the API Server.
+accessing [the scalar page](https://publicapi.1080motion.com/) hosted on the API Server.
 
 It's also possible to use a tool such as [Postman](https://www.postman.com/) to query the API.
 
@@ -46,7 +46,7 @@ python or R which many want to use.
 
 This lead us to develop the new, simpler web API.
 
-For the time being, both flavors of the API will continue to live side by side.
+For the time being, both flavors of the API will continue to live side by side, but new features only come to the HTTP based API.
 
 Read more about gRPC over at: 
 - https://grpc.io
